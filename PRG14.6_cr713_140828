@@ -1,0 +1,228 @@
+PRG14.6_CR713_140828
+
+Feature:  As a Cover Officer using Progresso, when I am accessing the Assign Teacher screen: I want to be able to sort by every column heading in the list view; I want the Records per page to default to 100 so I can see all or most of my available staff; I want to see the display name for staff rather than their full name and I want to be able to view a full week's timetable for a selected member of staff.  When I am using the Record Absence screens to add absences for groups or unavailability for rooms I wish to see a good utilisation of white space.  I also want to be able to exclude a course and/or year from triggering cover events if teachers of groups with lessons for those courses/years are absent.
+
+Background:
+Given a Cover Officer called Drew (or anyone testing the software assuming the actions of Drew)
+And a login to a large school with full access rights to the Cover area of Progresso
+And Drew having logged in to Progresso with the aforementioned login
+And the school having more than 15 active Registration groups
+And the school having some Registration groups with Courses and Years assigned 
+And the school having more than 30 active Teaching Groups
+And the school having more than 30 rooms
+And the school having KS5 as a course
+And the school having year 12 and year 13 set up as years 
+And the school having some timetabled events with groups for years 12 and 13 attached 
+And the school having some staff absences entered for staff with events which have learner groups for years 12 and/or 13 attached 
+And the school having some room unavailability entered for the same events as year 12 or year 13 learner groups are attached to
+And the school having these at least one event which is excluded from cover, has the staff member attached absent and the room attached unavailable recorded for an active academic year for future dates
+And the school having some staff with different full names to display names
+And the school having some full time teachers assigned as teaching staff and available for cover
+And for scenario 6, some of the absence/covered dates concerning "Excluded From Cover" should be in the past and some should be in the future on the actual day of testing
+And for scenario 6, some of the absence/covered dates for year 9 should be covered for staff and unavailable rooms
+
+Scenario:  1	Drew assigns a teacher for cover, he uses the option to sort on some of the available columns in the list of free teachers, he identifies them by their display name or code and he finds out what their timetable is for that week
+Given  Drew has selected Cover | Assign Cover
+Then Drew should see the "Assign Cover" screen
+When Drew selects a "From Date" and a "To Date" which include some staff absences that require cover
+And selects "All Events"
+When Drew selects "View Timetable"
+Then Drew should see a graphical view displaying the timetable events which need to be covered for the selected dates 
+When Drew selects an event requiring teacher cover 
+And clicks "Assign Teacher"
+Then Drew should see the "Assign Teacher" page and the "Records Per Page" drop down should be 100 as default
+When Drew changes the radio button to "All Free Teachers"
+Then Drew should see the list of teachers expand to as many as are available and be able to scroll down the list
+When Drew needs to find a specific member of staff
+Then Drew should be able to click on the column headings for "Name", "Code" and "Cover Supervisor?" to sort the data alphabetically or numerically in an ascending fashion
+And Drew should be able to click the same column header again to sort the data alphabetically or numerically in a descending fashion
+When Drew wishes to be able to check what an available staff member has scheduled for that week 
+And selects the record of any member of staff with a timetable
+Then Drew clicks the "View Timetable" button and sees a whole week timetable for that person
+When Drew clicks "OK" he should be returned to the "Assign Teacher" screen to continue assigning cover
+Then the lesson just covered should be showing as covered by the person assigned
+
+Scenario:  2 Drew notices the marvellous use of empty space when assigning registration group absences, teaching group absences and room unavailability
+Given Drew has selected Cover | Record Absence
+Then Drew should see the "Manage Absent/Late Records" screen
+When Drew selects "Registration Group" from the "Task Panel"
+Then Drew should see the "Registration Group" page
+When Drew clicks "Add"
+Then Drew should see the "Record Absence for Registration Group" screen
+And should see the default "Records Per Page" drop down default
+Then he should see the list taking up as much of the space on the page as is needed to show all records for the default 
+When Drew increases the "Records Per Page" drop down to show the maximum number available
+Then Drew should see the list expand vertically to use as much empty space as possible on the page
+When Drew selects two random "Registration Groups" to make absent and fills in the mandatory fields
+And clicks "Save"
+And clicks "OK"
+Then Drew will be returned to the "Registration Group" screen
+When Drew selects "Teaching Group" from the "Task Panel"
+Then Drew should see the "Teaching Group" page
+When Drew clicks "Add"
+Then Drew should see the "Record Absence for Teaching Group" screen
+And Drew should see the default "Records Per Page" drop down default 
+Then he should see the list taking up as much of the space on the page as is needed to show all records included in the default
+When Drew increases the "Records Per Page" drop down to show the maximum number available
+Then Drew should see the list expand vertically to use as much empty space as possible on the page
+When Drew selects four random "Teaching Groups" to make absent and fills in the mandatory fields
+And clicks "Save"
+And clicks "OK"
+Then Drew will be returned to the "Teaching Group" screen
+When Drew selects "Room Unavailability" from the "Task Panel"
+Then Drew should see the "Room Unavailability" page
+When Drew clicks "Add"
+Then Drew should see the "Record Room Unavailability" screen
+And should see the default "Records Per Page" drop down default
+Then he should see the list taking up as much of the space on the page as is needed to show all records included in the default
+When Drew increases the "Records Per Page" drop down to show the maximum number available
+Then Drew should see the list expand vertically to use as much empty space as possible on the page
+When Drew selects two random "Rooms" to make absent and fills in the mandatory fields
+And clicks "Save" 
+And clicks "OK"
+Then Drew will be returned to the "Room Unavailability" screen
+
+Scenario:  3 Drew excludes Key Stage 5 lessons from cover
+Given Drew has selected Cover | Cover Settings | Configure Cover | Excluded From Cover
+Then Drew should see a drop down which when expanded shows each "Academic Year" set up in the school 
+When Drew selects the required "Academic Year" from the drop down box
+Then Drew should see all available years with the correct course mapping for that selected "Academic Year" in the "Available Years" section on the left hand side of the screen
+And there should be a row for each year available so that each year can be dealt with separately - e.g. KS3 year 7, KS3 year 8, KS3 year 9
+And there should be a tick box for selection by each year and a select all tick box to select every year in the list
+When Drew selects a record from the "Available Years" section on the left
+Then the selected row is highlighted 
+When Drew clicks Add >>
+Then the selected year record will move over to the "Excluded From Cover" panel on the right and no longer appear in the "Available Years" panel on the left 
+When Drew selects the year in the "Excluded From Cover" panel on the right and drag and drops it to the "Available Years" panel on the left
+Then the selected year record will move over to the "Available Years" on the left and no longer appear in the "Excluded From Cover" panel on the right
+When Drew clicks Add >> without selecting any record
+Then an error message asking Drew to please select a record will appear
+When Drew clicks "OK"
+Then Drew will be returned to the "Excluded From Cover" settings page
+When Drew clicks << Remove without selecting any record
+Then an error message asking Drew to please select a record will appear
+When Drew clicks "OK"
+Then Drew will be returned to the "Excluded From Cover" settings page
+When Drew selects both Year 12 and Year 13 from the "Available Years" panel on the left 
+And clicks "Add >>"
+Then Year 12 and Year 13 will appear in the "Excluded From Cover" panel on the right 
+When Drew clicks "Save" 
+Then a confirmation message confirming a successful save will appear 
+When Drew clicks "OK"
+Then the settings will be Saved and Drew will remain on the "Excluded From Cover" page
+When Drew navigates away from the page and returns
+Then the "Academic Year" drop down defaults to the last year selected when data was saved
+And Year 12 and Year 13 are still in the "Excluded From Cover" panel on the right
+When Drew Selects Year 8 and Year 11 from the "Available Years" panel on the left
+Then the records are highlighted
+When Drew drag and drops the years over on to the "Excluded From Cover" panel on the right 
+Then Year 8 and Year 11 will appear on the "Excluded From Cover" panel on the right 
+And Year 8 and Year 11 will no longer show on the "Available Years" panel on the left
+When Drew clicks "Cancel"
+Then Drew will be returned to the Home page and none of his changes will be saved
+
+Scenario:  4 Drew sees first hand how the new exclude from cover setting works
+Given Drew has selected Cover | Assign Cover 
+Then Drew should see the "Assign Cover" screen
+When Drew selects a date range to include some absences for staff with lessons for year 12 and year 13 or where cover is not required where the room is also unavailable on the same date as the staff is absent
+And selects "All Events"
+When Drew selects "View Timetable"
+Then any events affected by staff absence during the selected date range should appear in the graphical view including those excluded from cover
+When Drew checks the events which require cover
+Then any events which have a year 12 or year 13 teaching group attached to them should be showing in the "Cover Not Required" shade of light red 
+And Drew should be able to tell what that light shade of red means by checking the key for the colours at the bottom of the screen
+When Drew changes the radio button to "Cover Not Required" 
+And clicks "View Timetable"
+Then any events which have a year 12 or year 13 learner group attached to them where the room has NOT been made unavailable, should be showing in the shade of light red 
+When Drew selects the "All Events" radio button and clicks "View Timetable" 
+Then all events should appear again including those with year 12 and year 13 learner groups and no unavailable rooms attached which don't require cover 
+When Drew selects some events which do require teachers covering but also selects an event which is "excluded from cover"
+And clicks "Assign Teacher"
+Then an error message should appear advising Drew he has selected at least one event which has the status "Excluded from Cover" 
+When Drew selects an event which is excluded from cover but also has an unavailable room
+Then he should be able to select "Assign Room" and assign a replacement room for the group
+When Drew selects an event which is "excluded from cover" but also needs a room assigning to it
+And selects "Event Details"
+And selects "Cover Not Required"
+And selects "OK"
+When Drew selects "Cover Not Required" 
+And selects "View Timetable"
+Then the events which are marked as "Excluded From Cover" and the event which was marked as "Cover Not Required" should all show
+And the event which was "excluded from cover" but had the unavailable room which was marked as "Cover Not Required" will still show as the shade of light red for "Excluded From Cover"
+When Drew selects "Requires Cover" 
+And selects "View Timetable" 
+Then Drew should see any events where teacher and/or room cover is required alongside any "Excluded From Cover" events ONLY where they have an unavailable room 
+When Drew selects "Covered" 
+And selects "View Timetable"
+Then Drew should only see those events marked as "Excluded from Cover" which HAVE had an unavailable room covered alongside other events which have been covered
+
+Scenario:  5 Drew needs to change which years are excluded from cover mid academic year 
+Given Some events "excluded from cover" have been and gone, some are still to happen and there are some year 13 events this morning, and some this afternoon, some year 9 events after today have been covered for staff and rooms 
+When Drew has selected System | Module Settings | Cover | Excluded From Cover
+Then Drew should see a drop down which when expanded shows each "Academic Year" set up in the school 
+When Drew checks the required "Academic Year" is selected from the drop down box
+Then Drew should see the correct years with the correct course mapping available for that selected "Academic Year" in the "Available Years" section on the left hand side of the screen
+And there should be a row for each year available so that each year can be dealt with separately - e.g. KS3 year 8, KS3 year 9, KS4 year 10
+And there should be a tick box for selection by each year and a select all tick box to select every year in the list
+And in the "Excluded For Cover" panel on the right hand side of the screen Drew should see Year 12 and Year 13 as he previously added those
+When Drew selects the record for Year 13 from the "Excluded From Cover" panel on the right hand side of the screen
+Then the selected row is highlighted 
+When Drew clicks << Remove
+Then the record for Year 13 will move over to the "Available Years" panel on the left and no longer appear in the "Excluded From Cover" panel on the right 
+When Drew clicks "Save" 
+Then a confirmation message confirming a successful save will appear 
+When Drew clicks OK
+Then the settings will be Saved and Drew will remain on the "Cover Settings" page with the "Exclude From Cover" panel closed 
+When Drew selects Cover | Assign Cover 
+Then Drew should see the "Assign Cover" screen
+When Drew selects a date range to include the current date and some absences for staff with lessons for year 13 in the morning and afternoon
+And selects "All Events"
+And selects "View Timetable"
+Then any events affected by staff absence during the selected date range should appear in the graphical view including those excluded from cover
+When Drew checks the year 13 events right up to the point Year 13 was put back in to Available years 
+Then those Year 13 events are still showing as "Excluded From Cover"
+When Drew checks the year 13 events right after and for the remainder of the selected date range from when Year 13 was put back in to Available Years
+Then those Year 13 events are showing as "Requires Cover" 
+When Drew selects "Requires Cover" 
+And selects "View Timetable"
+Then Year 13 events from the time Year 13 was set to be covered again should appear
+When Drew selects "Cover Not Required" 
+And selects "View Timetable"
+Then Year 13 events from before the time Year 13 was set to be covered again should appear
+When Drew tries to cover any events which require a teacher or room 
+Then he should be able to do so
+When Drew tries to cover any events which are excluded from cover and don't require a teacher or room 
+Then he should be able to do so
+When Drew tries to assign a room to an event which requires no teacher but a room 
+Then he should be able to do so
+When Drew has selected System | Module Settings | Cover | Excluded From Cover
+Then Drew should see a drop down which when expanded shows each "Academic Year" set up in the school 
+When Drew checks the required "Academic Year" is selected from the drop down box
+Then Drew should see the correct years with the correct course mapping available for that selected "Academic Year" in the "Available Years" section on the left hand side of the screen
+And there should be a row for each year available so that each year can be dealt with separately - e.g. KS3 year 8, KS3 year 9, KS4 year 10
+And there should be a tick box for selection by each year and a select all tick box to select every year in the list
+When Drew selects Year 9 from the "Available Years" panel it should be highlighted
+When Drew selects "Add >>" 
+Then Year 9 should move to the "Excluded From Cover" panel 
+When Drew clicks "Save" 
+Then a confirmation message confirming a successful save will appear 
+When Drew clicks OK
+Then the settings will be Saved and Drew will remain on the "Cover Settings" page with the "Exclude From Cover" panel closed 
+When Drew selects Cover | Assign Cover 
+Then Drew should see the "Assign Cover" screen
+When Drew selects a date range to include the current date and some absences for staff with lessons for year 13 in the morning and afternoon
+And selects "All Events"
+And selects "View Timetable"
+Then any events affected by staff absence during the selected date range should appear in the graphical view including those excluded from cover
+When Drew checks any Year 9 events AFTER the change to exclude Year 9 from cover was made
+Then Drew should see that the covering teacher and covering room have been removed from the event and the event status is "Excluded From Cover"
+When Drew changes the radio button to "Cover Not Required"
+And Clicks "View Timetable"
+Then Drew should see the year 9 events in the shade of red for "Excluded From Cover" 
+When Drew checks the teacher which was assigned and the room which was assigned for cover against another absence at the same time
+Then he should see them back in the available list as they have been removed from covering the year 9 event after it was excluded from cover
+
+
+
+
+
